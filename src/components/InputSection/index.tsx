@@ -10,7 +10,7 @@ export default function InputSection() {
   const { setPoints, setQueryX, setError, setEqualSpacing } = useAppContext();
   const [activeTab, setActiveTab] = useState<'nlp' | 'table' | 'file'>('nlp');
   const [nlpInput, setNlpInput] = useState('');
-  const [tableData, setTableData] = useState<Point[]>([{ x: 0, y: 0 }]);
+  const [tableData, setTableData] = useState<{x: string, y: string}[]>([{ x: '0', y: '0' }]);
   const [queryInput, setQueryInput] = useState('');
 
   // Handle NLP parsing
@@ -45,9 +45,15 @@ export default function InputSection() {
 
   // Handle table submission
   const handleTableSubmit = () => {
-    const filteredData = tableData.filter(p => !isNaN(p.x) && !isNaN(p.y));
+    // Convert string values to numbers
+    const convertedData: Point[] = tableData
+      .map(p => ({
+        x: parseFloat(p.x),
+        y: parseFloat(p.y)
+      }))
+      .filter(p => !isNaN(p.x) && !isNaN(p.y));
     
-    if (filteredData.length < 2) {
+    if (convertedData.length < 2) {
       setError('At least 2 valid data points are required');
       return;
     }
@@ -58,7 +64,7 @@ export default function InputSection() {
       return;
     }
 
-    const preprocessed = preprocessPoints(filteredData);
+    const preprocessed = preprocessPoints(convertedData);
     if (!preprocessed.isValid) {
       setError(preprocessed.error || 'Invalid points');
       return;
@@ -126,7 +132,7 @@ export default function InputSection() {
 
   // Add/remove table rows
   const addTableRow = () => {
-    setTableData([...tableData, { x: 0, y: 0 }]);
+    setTableData([...tableData, { x: '', y: '' }]);
   };
 
   const removeTableRow = (index: number) => {
@@ -137,7 +143,7 @@ export default function InputSection() {
 
   const updateTableRow = (index: number, field: 'x' | 'y', value: string) => {
     const newData = [...tableData];
-    newData[index][field] = parseFloat(value) || 0;
+    newData[index][field] = value;
     setTableData(newData);
   };
 
@@ -244,18 +250,22 @@ export default function InputSection() {
                   <tr key={index} className="border-b">
                     <td className="p-2">
                       <input
-                        type="number"
-                        step="any"
+                        type="text"
+                        inputMode="decimal"
+                        pattern="[+-]?([0-9]*[.])?[0-9]+"
                         className="w-full p-1 border border-gray-300 rounded"
+                        placeholder="e.g., 0.25"
                         value={point.x}
                         onChange={(e) => updateTableRow(index, 'x', e.target.value)}
                       />
                     </td>
                     <td className="p-2">
                       <input
-                        type="number"
-                        step="any"
+                        type="text"
+                        inputMode="decimal"
+                        pattern="[+-]?([0-9]*[.])?[0-9]+"
                         className="w-full p-1 border border-gray-300 rounded"
+                        placeholder="e.g., 1.5"
                         value={point.y}
                         onChange={(e) => updateTableRow(index, 'y', e.target.value)}
                       />
@@ -285,10 +295,11 @@ export default function InputSection() {
               Query x value:
             </label>
             <input
-              type="number"
-              step="any"
+              type="text"
+              inputMode="decimal"
+              pattern="[+-]?([0-9]*[.])?[0-9]+"
               className="w-full p-2 border border-gray-300 rounded-md"
-              placeholder="Enter x value to interpolate"
+              placeholder="e.g., 0.25 or 1.5"
               value={queryInput}
               onChange={(e) => setQueryInput(e.target.value)}
             />
