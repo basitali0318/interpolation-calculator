@@ -24,7 +24,7 @@ export default function ExportButtons() {
     );
   }
 
-  const showMessage = (message: string, isSuccess: boolean) => {
+  const showMessage = (message: string, _isSuccess?: boolean) => {
     setExportMessage(message);
     setTimeout(() => setExportMessage(''), 3000);
   };

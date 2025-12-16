@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+// @ts-expect-error react-plotly.js has no type declarations
 import Plot from 'react-plotly.js';
 import { useAppContext } from '../../context/AppContext';
 
@@ -28,16 +29,6 @@ export default function Visualization() {
 
     // If we have results, plot interpolant curves
     if (results.length > 0 && queryX !== null) {
-      const minX = Math.min(...points.map(p => p.x));
-      const maxX = Math.max(...points.map(p => p.x));
-      const range = maxX - minX;
-      
-      // Generate dense x points for smooth curves
-      const numPoints = 100;
-      const xDense = Array.from({ length: numPoints }, (_, i) => 
-        minX + (i / (numPoints - 1)) * range
-      );
-
       // For each method result, plot the interpolated curve
       const colors = ['#f59e0b', '#10b981', '#ef4444', '#0d9488', '#ea580c', '#059669', '#14b8a6'];
       

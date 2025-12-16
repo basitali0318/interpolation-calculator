@@ -1,5 +1,4 @@
 import { jsPDF } from 'jspdf';
-import Papa from 'papaparse';
 import { InterpolationResult, Point } from '../types/interpolation';
 
 /**

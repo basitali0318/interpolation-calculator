@@ -4,7 +4,7 @@ import { getRawForwardDifferences } from '../../algorithms/differenceTable';
 
 export default function NoiseAnalysis() {
   const { state } = useAppContext();
-  const { points, queryX } = state;
+  const { points } = state;
 
   const analysis = useMemo(() => {
     if (points.length < 3) return null;
@@ -52,8 +52,6 @@ export default function NoiseAnalysis() {
       if (vals.length === 0) continue;
 
       const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
-      const absVals = vals.map(v => Math.abs(v));
-      const avgAbsVal = absVals.reduce((a, b) => a + b, 0) / absVals.length;
       const variance = vals.reduce((sum, v) => sum + Math.pow(v - mean, 2), 0) / vals.length;
       const stdDev = Math.sqrt(variance);
       const range = Math.max(...vals) - Math.min(...vals);

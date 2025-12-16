@@ -1,4 +1,4 @@
-import { Point, ParsedInput, MethodType } from '../types/interpolation';
+import { ParsedInput, MethodType } from '../types/interpolation';
 
 /**
  * Parse natural language input to extract data points, query point, and method hints
