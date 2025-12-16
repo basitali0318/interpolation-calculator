@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for difference tables */
+.difference-table {
+  @apply w-full border-collapse;
+}
+
+.difference-table th,
+.difference-table td {
+  @apply border border-gray-300 px-3 py-2 text-center;
+}
+
+.difference-table th {
+  @apply bg-blue-100 font-semibold;
+}
+
+/* KaTeX rendering */
+.katex-display {
+  @apply my-2;
+}
+
+/* Collapsible sections */
+.collapsible-content {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+/* Loading animation */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Fade in animation for tab transitions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
