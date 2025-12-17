@@ -124,7 +124,6 @@ function evaluateEverett(points: Point[], x: number, h: number): number {
   const n = points.length;
   const midIndex = Math.floor((n - 1) / 2);
   const x0 = points[midIndex].x;
-  const x1 = points[midIndex + 1].x;
   const u = (x - x0) / h;
   const w = 1 - u;
   
@@ -447,7 +446,9 @@ export default function SmoothingAnalysis() {
             layout={{
               title: {
                 text: 'Interpolation Curves Comparison',
-                font: { size: 16, color: '#374151' }
+                font: { size: 14, color: '#374151' },
+                x: 0.02,
+                xanchor: 'left'
               },
               xaxis: {
                 title: 'x',
@@ -464,14 +465,17 @@ export default function SmoothingAnalysis() {
               hovermode: 'closest',
               showlegend: true,
               legend: {
-                x: 1.02,
-                y: 1,
+                orientation: 'h',
+                x: 0.5,
+                xanchor: 'center',
+                y: -0.22,
                 bgcolor: 'rgba(255,255,255,0.95)',
-                bordercolor: '#d1d5db',
+                bordercolor: '#e5e7eb',
                 borderwidth: 1,
-                font: { size: 11 }
+                font: { size: 10 },
+                tracegroupgap: 5
               },
-              margin: { l: 60, r: 180, t: 50, b: 60 },
+              margin: { l: 50, r: 50, t: 40, b: 110 },
               plot_bgcolor: 'rgba(249, 250, 251, 0.8)',
               paper_bgcolor: 'transparent',
               autosize: true
@@ -480,16 +484,18 @@ export default function SmoothingAnalysis() {
               responsive: true,
               displayModeBar: true,
               displaylogo: false,
-              modeBarButtonsToRemove: ['lasso2d', 'select2d'],
+              scrollZoom: true,
+              modeBarButtonsToRemove: ['lasso2d', 'select2d', 'autoScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian', 'toggleSpikelines', 'pan2d', 'zoomIn2d', 'zoomOut2d'],
               toImageButtonOptions: {
                 format: 'png',
                 filename: 'smoothing_comparison',
                 height: 800,
-                width: 1400,
+                width: 1200,
                 scale: 2
               }
             }}
-            style={{ width: '100%', height: '450px' }}
+            style={{ width: '100%', height: '420px', minHeight: '320px' }}
+            useResizeHandler={true}
           />
         </div>
       ) : (

@@ -383,7 +383,9 @@ export default function Visualization() {
               text: results.length > 0 
                 ? `Interpolation at x = ${queryX?.toFixed(4) ?? 'N/A'}` 
                 : 'Data Points',
-              font: { size: 16, color: '#374151', family: 'system-ui' }
+              font: { size: 14, color: '#374151', family: 'system-ui' },
+              x: 0.02,
+              xanchor: 'left'
             },
             xaxis: {
               title: { text: 'x', font: { size: 14, color: '#6b7280' } },
@@ -414,15 +416,18 @@ export default function Visualization() {
             hovermode: 'closest',
             showlegend: true,
             legend: {
-              x: 1.02,
-              y: 1,
+              orientation: 'h',
+              x: 0.5,
+              xanchor: 'center',
+              y: -0.2,
               bgcolor: 'rgba(255,255,255,0.95)',
-              bordercolor: '#d1d5db',
+              bordercolor: '#e5e7eb',
               borderwidth: 1,
-              font: { size: 11, family: 'system-ui' },
-              itemsizing: 'constant'
+              font: { size: 10, family: 'system-ui' },
+              itemsizing: 'constant',
+              tracegroupgap: 5
             },
-            margin: { l: 70, r: 200, t: 60, b: 60 },
+            margin: { l: 50, r: 50, t: 40, b: 90 },
             plot_bgcolor: 'rgba(255,255,255,0.9)',
             paper_bgcolor: 'transparent',
             autosize: true,
@@ -432,16 +437,19 @@ export default function Visualization() {
             responsive: true,
             displayModeBar: true,
             displaylogo: false,
-            modeBarButtonsToRemove: ['lasso2d', 'select2d'],
+            scrollZoom: true,
+            modeBarButtonsToAdd: [],
+            modeBarButtonsToRemove: ['lasso2d', 'select2d', 'autoScale2d', 'hoverClosestCartesian', 'hoverCompareCartesian', 'toggleSpikelines', 'pan2d', 'zoomIn2d', 'zoomOut2d'],
             toImageButtonOptions: {
               format: 'png',
               filename: 'interpolation_plot',
               height: 800,
-              width: 1400,
+              width: 1200,
               scale: 2
             }
           }}
-          style={{ width: '100%', height: '500px' }}
+          style={{ width: '100%', height: '450px', minHeight: '350px' }}
+          useResizeHandler={true}
         />
       </div>
 
