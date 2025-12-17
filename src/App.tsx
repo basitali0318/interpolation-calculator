@@ -9,6 +9,7 @@ import ExportButtons from './components/ExportButtons'
 import RealWorldDataSelector from './components/RealWorldData'
 import NoiseAnalysis from './components/NoiseAnalysis'
 import MethodRecommendations from './components/MethodRecommendations'
+import SmoothingAnalysis from './components/SmoothingAnalysis'
 
 function AppContent() {
   const { state } = useAppContext();
@@ -157,6 +158,9 @@ function AppContent() {
             
             <div className="space-y-6">
               <Visualization />
+              
+              {/* Smoothing Behavior Analysis - Full Width */}
+              <SmoothingAnalysis />
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <NoiseAnalysis />

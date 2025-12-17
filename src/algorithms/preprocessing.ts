@@ -1,7 +1,8 @@
 import { Point, PreprocessingResult } from '../types/interpolation';
 
-// Tolerance for floating point comparisons
-const EPSILON = 0.0001;
+// Tolerance for floating point comparisons (0.1% relative tolerance)
+const RELATIVE_TOLERANCE = 0.001;
+const ABSOLUTE_TOLERANCE = 0.0001;
 
 /**
  * Validate and preprocess input data points
